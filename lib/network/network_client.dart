@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:cats_list/models/breed.dart';
 import 'package:cats_list/network/urls.dart';
@@ -6,8 +7,8 @@ import 'package:http/http.dart' as http;
 
 class NetworkClient {
   static Future<List<Breed>> fetchBreeds() async {
-    final response = await http.get(Urls.BREEDS,
-        headers: {"x-api-key": "e61d50b3-b967-4643-b749-361062084e8f"});
+    final response =
+        await http.get(Urls.BREEDS, headers: Headers.NORMAL_HEADER);
 
     if (response.statusCode == 200) {
       final List<Breed> fetchedBreedList = [];
@@ -18,6 +19,21 @@ class NetworkClient {
       return fetchedBreedList;
     } else {
       throw Exception('Failed to load breeds');
+    }
+  }
+
+  static Future<String> fetchImageUrl(String breedId) async {
+    final response = await http.get("${Urls.IMAGES}?breed_id=$breedId",
+        headers: Headers.NORMAL_HEADER);
+
+    if (response.statusCode == 200) {
+      String fileUrl = "";
+      List<dynamic> responseData = jsonDecode(response.body);
+      fileUrl = responseData[0]["url"];
+      if (fileUrl == "") throw Exception('Failed to load image');
+      return fileUrl;
+    } else {
+      throw Exception('Failed to load image');
     }
   }
 }

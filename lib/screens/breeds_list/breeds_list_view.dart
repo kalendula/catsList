@@ -1,4 +1,5 @@
 import 'package:cats_list/models/breed.dart';
+import 'package:cats_list/screens/breeds_details.dart/details_view.dart';
 import 'package:cats_list/screens/breeds_list/breeds_bloc.dart';
 import 'package:cats_list/screens/breeds_list/breeds_events.dart';
 import 'package:flutter/material.dart';
@@ -47,6 +48,12 @@ class _BreedScreenViewState extends State<BreedScreenView> {
         Breed breed = breeds[index];
         return ListTile(
           title: Text('${breed.name}'),
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => BreedsDetailScreen(
+                      breed: breed,
+                    )));
+          },
         );
       },
       separatorBuilder: (context, index) => Divider(
