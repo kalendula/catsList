@@ -40,6 +40,10 @@ class BreedsDetailScreen extends StatelessWidget {
               Divider(
                 color: Colors.black,
               ),
+              textElement("Temperament: ${breed.temperament}"),
+              Divider(
+                color: Colors.black,
+              ),
             ])));
   }
 

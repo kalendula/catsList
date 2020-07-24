@@ -23,4 +23,13 @@ class Breed {
         lifeSpan: json['life_span'],
         id: json['id']);
   }
+
+  Map<String, dynamic> toJson() => {
+        'name': name,
+        'temperament': temperament,
+        'description': description,
+        'origin': origin,
+        'life_span': lifeSpan,
+        'id': id,
+      };
 }
